@@ -33,7 +33,3 @@ variable "scale_up_adjustment" {
 variable "scale_down_adjustment" {
   default = "-1"
 }
-
-variable "ecs_autoscale_role_arn" {
-  description = "ARN of the autoscale group"
-}

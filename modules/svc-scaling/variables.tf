@@ -74,3 +74,23 @@ variable "metric_name" {
   # "CPUUtilization" "MemoryUtilization"
   default = "CPUUtilization"
 }
+
+variable "namespace" {
+  default = "AWS/ECS"
+}
+
+variable "tg_arn" {
+  default = "*"
+}
+
+variable "lb_arn" {
+  default = "*"
+}
+
+variable "ecs-autoscale-role_arn" {
+  
+}
+
+variable "dims" {
+
+}

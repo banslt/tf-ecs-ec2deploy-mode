@@ -29,3 +29,11 @@ variable "ec2_memory" {
   description = "ec2 instance memory to provision (in MiB)"
   default     = "512"
 }
+
+variable "min_capacity" {
+  default = "1"
+}
+
+variable "max_capacity" {
+  default = "50"
+}

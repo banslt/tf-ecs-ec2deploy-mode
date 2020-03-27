@@ -1,3 +1,3 @@
-output "ecs_autoscale_role_arn" {
-  value = "${aws_iam_role.ecs-autoscale-role.arn}"
+output "target" {
+  value = "${aws_appautoscaling_policy.scale_down.resource_id}"
 }
