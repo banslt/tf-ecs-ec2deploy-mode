@@ -5,7 +5,8 @@ resource "aws_lb" "loadbalancer" {
   subnets             = flatten([aws_subnet.public.*.id])  # public subnets
   security_groups     = [aws_security_group.alb.id] 
   depends_on = [
-    aws_subnet.public,
+    aws_subnet.public
+    ,aws_internet_gateway.gw
   ]
   provisioner "local-exec" {
     command = "echo ${aws_lb.loadbalancer.dns_name} > ../../lb_addr/loadbalancer_address"

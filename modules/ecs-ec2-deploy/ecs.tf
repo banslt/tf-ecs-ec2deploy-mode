@@ -25,7 +25,7 @@ resource "aws_ecs_cluster" "cluster" {
 # AWS ECS-SERVICE
 resource "aws_ecs_service" "service" {
   cluster                = aws_ecs_cluster.cluster.id
-  desired_count          = 1
+  desired_count          = 10
   launch_type            = "EC2"
   name                   = "stresstestapp"
   task_definition        = aws_ecs_task_definition.app.arn

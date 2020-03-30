@@ -36,7 +36,7 @@ module "svc-tracking-scaling" {
   alarm_name      = "ba_cpu_tracking_stressapp"
   scale_policy_name_prefix = "ba_cpu_tracking_stressapp"
   min_capacity    = "1"
-  max_capacity    = "50"
+  max_capacity    = "70"
 }
 
 
@@ -49,12 +49,12 @@ module "svc-scaling-lb-rsp-time" {
   statistic       = "Average"
   namespace       = "AWS/ApplicationELB"
   metric_name     = "TargetResponseTime"
-  scale_up_adjustment = "100"
-  scale_down_adjustment = "-50"
+  scale_up_adjustment = "70"
+  scale_down_adjustment = "-25"
   evaluation_periods = 1
   datapoints_to_alarm_up = 1
   datapoints_to_alarm_down = 1
-  threshold_up    = "0.200"
+  threshold_up    = "0.170"
   threshold_down  = "0"
   ecs-autoscale-role_arn = module.ecs-ec2-deploy.aws_iam_role_ecs_asg_role_arn
   dims = [ {name= "TargetGroup" ,value=module.ecs-ec2-deploy.aws_alb_target_group_app_arn_suffix }
@@ -71,8 +71,10 @@ module "svc-tracking-scaling-lb-rsp-time" {
   namespace       = "AWS/ApplicationELB"
   metric_name     = "TargetResponseTime"
   min_capacity    = "1"
-  max_capacity    = "50"
-  target_value    = "0.200" 
+  max_capacity    = "70"
+  target_value    = "0.130" 
+  scale_in_cooldown = 10
+  scale_out_cooldown = 5
   disable_scale_in= true
   dims = [ {name= "TargetGroup" ,value=module.ecs-ec2-deploy.aws_alb_target_group_app_arn_suffix }
           ,{name= "LoadBalancer",value=module.ecs-ec2-deploy.aws_alb_arn_suffix }
@@ -86,11 +88,11 @@ module "svc-tracking-scaling-lb-rsp-time" {
 #   alarm_name      = "ba_mem_stressapp"
 #   scale_policy_name_prefix = "ba_stressapp"
 #   min_capacity    = "1"
-#   max_capacity    = "50"
+#   max_capacity    = "70"
 #   statistic       = "Maximum"
 #   metric_name     = "MemoryUtilization"
 #   scale_up_adjustment = "100"
-#   scale_down_adjustment = "-50"
+#   scale_down_adjustment = "50"
 #   threshold_up = "90"
 #   threshold_down = "30"
 #   ecs-autoscale-role_arn = module.ecs-ec2-deploy.aws_iam_role_ecs_asg_role_arn
@@ -103,6 +105,6 @@ module "svc-tracking-scaling-lb-rsp-time" {
 #   alarm_name      = "ba_mem_stressapp"
 #   scale_policy_name_prefix = "ba_stressapp"
 #   min_capacity    = "1"
-#   max_capacity    = "50"
+#   max_capacity    = "70"
 #   statistic       = "Maximum"
 # }
