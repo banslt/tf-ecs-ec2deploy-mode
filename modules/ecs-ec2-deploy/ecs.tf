@@ -15,9 +15,9 @@ provider "aws" {
 resource "aws_ecs_cluster" "cluster" {
   name = "ba-ecs-ec2-cluster"
   # capacity provider name must be hardcoded, otherwise it will raise false error "already existing, can't create"
-  capacity_providers = ["ba-ecs_capacity_provider-${random_string.random.result}"]  
+  # capacity_providers = ["ba-ecs_capacity_provider-${random_string.random.result}"]  
   depends_on = [
-    aws_ecs_capacity_provider.test,
+    # aws_ecs_capacity_provider.test,
     aws_autoscaling_group.ecs-ec2-asg
   ] 
 }
@@ -25,7 +25,7 @@ resource "aws_ecs_cluster" "cluster" {
 # AWS ECS-SERVICE
 resource "aws_ecs_service" "service" {
   cluster                = aws_ecs_cluster.cluster.id
-  desired_count          = 10
+  desired_count          = 3
   launch_type            = "EC2"
   name                   = "stresstestapp"
   task_definition        = aws_ecs_task_definition.app.arn

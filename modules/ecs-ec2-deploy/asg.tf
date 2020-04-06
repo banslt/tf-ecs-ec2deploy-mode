@@ -7,7 +7,7 @@ data "template_file" "user_data" {
 resource "aws_launch_configuration" "container_instance" {
   name_prefix   = "ba-ecs-ci-"
   image_id      = data.aws_ami.amifiltering.id
-  instance_type = "c5.2xlarge"
+  instance_type = "c5.xlarge"
   user_data = data.template_file.user_data.rendered
   iam_instance_profile   = aws_iam_instance_profile.ecs-instance-profile.name
   security_groups = [aws_security_group.ecs_ec2_sg.id,]
@@ -33,10 +33,10 @@ data "aws_ami" "amifiltering" {
 
 # ASG 
 resource "aws_autoscaling_group" "ecs-ec2-asg" {
-  name                 = "ba-ecs_capacity_provider-${random_string.random.result}"
-  max_size             = 4
+  name                 = "ba-ecs_capacity_provider-1"
+  max_size             = 3
   min_size             = 1
-  desired_capacity     = 1
+  desired_capacity     = 2
   launch_configuration = aws_launch_configuration.container_instance.name
   vpc_zone_identifier  = flatten([aws_subnet.private.*.id]) # location where the CIs will be deployed
   tags = [
